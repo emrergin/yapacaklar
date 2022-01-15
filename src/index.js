@@ -2,6 +2,8 @@ import {Task, defaultFolderName} from './rows';
 import checkImg from './ok.png';
 import './style.css';
 
+const randomBetween = (min, max) => min + Math.floor(Math.random() * (max - min + 1));
+
 function mainLoader() {
     const Everything=document.createElement('div');
     Everything.classList.add(`allThings`);
@@ -31,7 +33,7 @@ function header(){
     const Head = document.createElement('div');
     const Heading = document.createElement('div');
     Head.appendChild(leftLogo);
-    Heading.textContent=`Yapacaklar`;
+    Heading.textContent=`Yapılacaklar`;
     Head.appendChild(Heading);
     Head.classList.add(`Heading`);
 
@@ -63,28 +65,15 @@ function leftBar(){
 
     const addFolder=document.createElement(`button`);
     addFolder.textContent=`+`;
+
+    leftLinks.appendChild(leftForm());
     leftLinks.appendChild(addFolder);
+
+    
     return leftLinks;
 }
 
-function tableWrite(){
-    const tableContainer=document.createElement(`div`);
-    tableContainer.classList.add(`container`);
-    const table=document.createElement('table');
-    for (let i = 0; i < allTasks.length; i++) {
-        table.appendChild(allTasks[i].dataRow);
-    }
 
-    const buttonContainerRow=document.createElement(`tr`);
-    const addTask=document.createElement(`button`);
-    addTask.textContent=`+`;
-    addTask.style.cssText=`padding-left: 2vw; padding-right: 2vw`;
-    buttonContainerRow.appendChild(addTask);
-    table.appendChild(buttonContainerRow);
-
-    tableContainer.appendChild(table);
-    return tableContainer;
-}
 
 function generateFooter() {
     const bottomBar=document.createElement(`div`);
@@ -96,6 +85,95 @@ function generateFooter() {
     return bottomBar;
 }
 
+
+
+function leftForm(){
+    const leftForm=document.createElement(`form`);
+    leftForm.classList.add(`formContainer`);
+
+    const lInput=document.createElement(`input`);
+    lInput.type=`text`;
+
+    const cInput=document.createElement(`input`);
+    cInput.type=`color`;
+    cInput.value=ConvertRGBtoHex(randomBetween(0,255),randomBetween(0,255),randomBetween(0,255));
+
+    leftForm.appendChild(lInput);
+    leftForm.appendChild(cInput);
+
+    leftForm.setAttribute(`id`,`newFolderForm`);
+    return leftForm;
+
+    // Necessary stuff===============
+    function ColorToHex(color) {
+        var hexadecimal = color.toString(16);
+        return hexadecimal.length == 1 ? "0" + hexadecimal : hexadecimal;
+    }
+    
+    function ConvertRGBtoHex(red, green, blue) {
+        return "#" + ColorToHex(red) + ColorToHex(green) + ColorToHex(blue);
+    }
+}
+
+function tableWrite(){
+    const tableContainer=document.createElement(`div`);
+    tableContainer.classList.add(`container`);
+    const table=document.createElement('table');
+    for (let i = 0; i < allTasks.length; i++) {
+        table.appendChild(allTasks[i].dataRow);
+    }
+
+    const formContainer=document.createElement(`div`);
+    formContainer.style.display=`flex`;
+    const addTask=document.createElement(`button`);
+    addTask.textContent=`+`;
+    addTask.style.cssText=`padding-left: 2vw; padding-right: 2vw`;
+    formContainer.appendChild(addTask);
+    formContainer.appendChild(rightForm());
+
+    const newTaskFormRow=document.createElement(`tr`);
+    const newTaskFormCell=document.createElement(`td`);
+    newTaskFormCell.setAttribute(`colspan`,`3`);
+    newTaskFormCell.appendChild(formContainer);
+    newTaskFormCell.style.cssText=`padding:0px;`
+    newTaskFormRow.appendChild(newTaskFormCell);
+    
+    table.appendChild(newTaskFormRow);
+    tableContainer.appendChild(table);
+
+    return tableContainer;
+}
+
+function rightForm(){
+    const rightForm=document.createElement(`form`);
+    rightForm.classList.add(`formContainer`);
+
+    const rInput=document.createElement(`input`);
+    rInput.type=`text`;
+
+    const dInput=document.createElement(`input`);
+    dInput.type=`date`;
+
+    const tInput=document.createElement(`input`);
+    tInput.type=`time`;
+
+    const fInput=document.createElement(`select`);
+    const defaultOption=document.createElement(`option`);
+    defaultOption.value=defaultFolderName;
+    defaultOption.textContent=defaultFolderName;
+    fInput.appendChild(defaultOption);
+
+    rightForm.appendChild(rInput);
+    rightForm.appendChild(dInput);
+    rightForm.appendChild(tInput);
+    rightForm.appendChild(fInput);
+
+    rightForm.setAttribute(`id`,`newTaskForm`);
+
+    return rightForm;
+}
+
+
 // HERE IS THE MAIN PART==================
 
 let allTasks=[];
@@ -104,8 +182,8 @@ function addTask(title,folder,date){
     allTasks.push(new Task(title,folder,date));
 }
 
-// addTask("Dünyanın Fethi");
-// addTask("Dünyanın Temizlenmesi","önemli","29.11.2023");
+addTask("Dünyanın Fethi");
+addTask("Dünyanın Temizlenmesi","önemli","29.11.2023");
 
 document.body.appendChild(mainLoader());
 

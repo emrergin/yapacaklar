@@ -67,6 +67,7 @@ body{
     flex-direction: column;
     gap: 1vmin;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+    /* align-items: stretch; */
 }
 
 .leftLink{
@@ -80,7 +81,8 @@ body{
 
 button{
     font-weight: 800;
-    font-size: 1.5em;
+    font-size: 1.25em;
+    width:100%;
 }
 
 
@@ -125,3 +127,20 @@ td{
     padding: 1vh;
     margin:0px;
 }
+
+.deactivated{
+    display:none;
+}
+
+.activated{
+    display: block;
+}
+
+.formContainer{
+    display:flex;
+    justify-content: space-between;
+}
+
+/* input{
+    font-size: 1.5em;
+} */
