@@ -46,10 +46,8 @@ function leftBar(){
     const leftLinks=document.createElement('div');
 
     for (let i = 0; i < allFolders.length; i++) {
-        let Link=document.createElement('div');
-        Link.textContent=allFolders[i].folderName;
-        Link.classList.add(`leftLink`);
-        leftLinks.appendChild(Link);
+       
+        leftLinks.appendChild(allFolders[i].writeRow());
     }
 
     const addFolder=document.createElement(`button`);
@@ -107,10 +105,7 @@ function addNewFolder(){
     
     function reprintFolders(){
         for (let i = 0; i < allFolders.length; i++) {
-            let Link=document.createElement('div');
-            Link.textContent=allFolders[i].folderName;
-            Link.classList.add(`leftLink`);
-            leftForm1.parentNode.insertBefore(Link,leftForm1);
+            leftForm1.parentNode.insertBefore(allFolders[i].writeRow(),leftForm1);
         }
     }
 

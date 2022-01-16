@@ -71,7 +71,7 @@ body{
 }
 
 .leftLink{
-    background-color: var(--bannerrenk);
+    /* background-color: var(--bannerrenk); */
     color:var(--banneryazirenk);
     border-radius: 0.5vmin;
     padding: 1vmax 24vmin 1vmax 1vmin;
