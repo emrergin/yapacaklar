@@ -157,13 +157,14 @@ function addNewFolder(){
         addFolder(newName,newColor);
 
         do{
-            leftForm1.previousSibling.remove();S
+            leftForm1.previousSibling.remove();
         }while(leftForm1.previousSibling);
 
         reprintFolders();
 
         document.getElementById(`folderNameInput`).value=``;
         document.getElementById(`colorInput`).value=ConvertRGBtoHex(randomBetween(0,255),randomBetween(0,255),randomBetween(0,255));
+        remakeDropdown();
     }
     
     function reprintFolders(){
@@ -173,6 +174,14 @@ function addNewFolder(){
             Link.classList.add(`leftLink`);
             leftForm1.parentNode.insertBefore(Link,leftForm1);
         }
+    }
+
+    function remakeDropdown(){
+        const newOption=document.createElement(`option`);
+        newOption.value=newName;
+        newOption.textContent=newName;
+        document.getElementById(`folderInput`).appendChild(newOption);
+        // fInput.setAttribute(`id`,`folderInput`);
     }
 }
 
