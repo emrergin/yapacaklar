@@ -1,21 +1,9 @@
-import {tableWrite} from './taskTable';
+import {tableWrite,addNewTask} from './taskTable';
 import checkImg from './ok.png';
 import './style.css';
-import {Task,defaultFolderName} from './tasks';
+import {defaultFolderName} from './tasks';
 import {Folder} from './folder';
-
-// Necessary stuff===============
-const randomBetween = (min, max) => min + Math.floor(Math.random() * (max - min + 1));
-
-function ColorToHex(color) {
-    var hexadecimal = color.toString(16);
-    return hexadecimal.length == 1 ? "0" + hexadecimal : hexadecimal;
-}
-
-function ConvertRGBtoHex(red, green, blue) {
-    return "#" + ColorToHex(red) + ColorToHex(green) + ColorToHex(blue);
-}
-// ===============
+import {randomBetween,ConvertRGBtoHex,generateFooter}  from './requisites';
 
 
 function mainLoader() {
@@ -28,7 +16,7 @@ function mainLoader() {
     MidAll.classList.add(`middle_all`);
     const Mid1=leftBar();
     Mid1.classList.add(`middle_one`);
-    const Mid2=tableWrite(allTasks,defaultFolderName);
+    const Mid2=tableWrite();
     Mid2.classList.add(`middle_two`);
     Mid2.setAttribute(`id`,`taskTableDiv`);
     MidAll.appendChild(Mid1);
@@ -39,7 +27,6 @@ function mainLoader() {
 
     return Everything;
 }
-
 
 function header(){
     const leftLogo= new Image();
@@ -57,19 +44,6 @@ function header(){
 
 function leftBar(){
     const leftLinks=document.createElement('div');
-    // let folderList=[];
-
-    // if (allTasks.length===0){
-    //     let Link=document.createElement('div');
-    //     Link.textContent=defaultFolderName;
-    //     Link.classList.add(`leftLink`);
-    //     leftLinks.appendChild(Link);
-    // }
-    // for (let i = 0; i < allTasks.length; i++) {
-    //     folderList.push(allTasks[i].folder);
-    // }
-
-    // let ufolderList=[...new Set(folderList)];
 
     for (let i = 0; i < allFolders.length; i++) {
         let Link=document.createElement('div');
@@ -108,42 +82,6 @@ function leftForm(){
 
     leftForm.setAttribute(`id`,`newFolderForm`);
     return leftForm;
-}
-
-function addNewTask(){
-    let newName=document.getElementById(`taskNameInput`).value;
-    
-    if (newName){
-        let newDate=document.getElementById(`dateInput`).value;
-        if (newDate!==``){newDate=newDate.match(/\d+/g).reverse().join(`.`)}
-        let newTime=document.getElementById(`timeInput`).value;
-        let newFolder=document.getElementById(`folderInput`).value;
-
-        const rightFormRow= document.getElementById(`rightFormRow`);
-
-        addTask(newName,newFolder,newDate);
-
-        do{
-            rightFormRow.previousSibling.remove();
-        }while(rightFormRow.previousSibling);
-
-        reprintTasks();
-
-        document.getElementById(`taskNameInput`).value=``;
-        document.getElementById(`dateInput`).value=``;
-        document.getElementById(`timeInput`).value=``;
-        document.getElementById(`folderInput`).value=defaultFolderName;
-    }
-    
-    function reprintTasks(){
-        for (let i = 0; i < allTasks.length; i++) {
-            rightFormRow.parentNode.insertBefore(allTasks[i].writeRow(),rightFormRow);
-        }
-    }
-}
-
-function addTask(title,folder,date){
-    allTasks.push(new Task(title,folder,date));
 }
 
 function addNewFolder(){
@@ -189,25 +127,14 @@ function addFolder(name,color){
     allFolders.push(new Folder(name,color));
 }
 
-function generateFooter() {
-    const bottomBar=document.createElement(`div`);
-    bottomBar.setAttribute(`id`,`footer`);
-    const footnote=document.createElement(`p`);
-    footnote.innerHTML=`<a href=https://github.com/emrergin> Emre Ergin</a> tarafından tasarlanmıştır.`;
-    bottomBar.appendChild(footnote);
-  
-    return bottomBar;
-}
+
 
 // HERE IS THE MAIN PART==================
 
-let allTasks=[];
+
 let allFolders=[];
 
 addFolder(defaultFolderName);
-
-addTask("Dünyanın Fethi");
-// addTask("Dünyanın Temizlenmesi","önemli","29.11.2023");
 
 document.body.appendChild(mainLoader());
 document.getElementById(`buttonAddTask`).addEventListener("click", addNewTask);

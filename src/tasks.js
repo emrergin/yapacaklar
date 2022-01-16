@@ -9,7 +9,7 @@ export class Task{
         this.folder = folder || defaultFolderName;
         this.lastDate = lastDate || ``;
         // this.dataRow=this.writeRow();
-        // this.colour=this.folder.
+        // this.colour=[`this.folder`].color;
 
     }
 
@@ -22,10 +22,10 @@ export class Task{
         let remaining=document.createElement(`td`);
 
         // name.style.cssText=`border-left: 2vw solid red;`;
+        // name.textContent=this.taskName+this.colour;
         name.textContent=this.taskName;
         row.appendChild(name);
 
-        // date.textContent=this.lastDate.match(/\d+/g).join(`.`);
         date.textContent=this.lastDate;
         if (this.lastDate===``){date.style.cssText=`border:0px;`;}
         row.appendChild(date);

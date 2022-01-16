@@ -1,11 +1,11 @@
-import {defaultFolderName} from './tasks';
+import {Task,defaultFolderName} from './tasks';
 
-function tableWrite(TaskArray){
+function tableWrite(){
     const tableContainer=document.createElement(`div`);
     tableContainer.classList.add(`container`);
     const table=document.createElement('table');
     // table.setAttribute(`id`,`taskTable`);
-    printTasks(TaskArray,table);
+    printTasks(allTasks,table);
 
     const formContainer=document.createElement(`div`);
     formContainer.style.display=`flex`;
@@ -65,50 +65,50 @@ function tableWrite(TaskArray){
     }
 }
 
-// function addNewTask(TaskArray,currentTable){
-
-function printTasks(TaskArray,currentTable){
-    for (let i = 0; i < TaskArray.length; i++) {
-        currentTable.appendChild(TaskArray[i].writeRow());
+function printTasks(currentTable){
+    for (let i = 0; i < allTasks.length; i++) {
+        currentTable.appendChild(allTasks[i].writeRow());
     }
 }
 
-// function addNewTask(TaskArray){
-//     let newName=document.getElementById(`taskNameInput`).value;
+function addNewTask(){
+    let newName=document.getElementById(`taskNameInput`).value;
     
-//     if (newName){
-//         let newDate=document.getElementById(`dateInput`).value;
-//         let newTime=document.getElementById(`timeInput`).value;
-//         let newFolder=document.getElementById(`folderInput`).value;
+    if (newName){
+        let newDate=document.getElementById(`dateInput`).value;
+        if (newDate!==``){newDate=newDate.match(/\d+/g).reverse().join(`.`)}
+        let newTime=document.getElementById(`timeInput`).value;
+        let newFolder=document.getElementById(`folderInput`).value;
 
-//         const rightFormRow= document.getElementById(`rightFormRow`);
+        const rightFormRow= document.getElementById(`rightFormRow`);
 
-//         addTask(TaskArray,newName,newFolder,newDate);
+        addTask(newName,newFolder,newDate);
 
-//         do{
-//             rightFormRow.previousSibling.remove();
-//         }while(rightFormRow.previousSibling);
+        while(rightFormRow.previousSibling){
+            rightFormRow.previousSibling.remove();
+        }
 
-//         reprintTasks();
+        reprintTasks();
 
-//         document.getElementById(`taskNameInput`).value=``;
-//         document.getElementById(`dateInput`).value=``;
-//         document.getElementById(`timeInput`).value=``;
-//         document.getElementById(`folderInput`).value=defaultFolderName;
-//     }
+        document.getElementById(`taskNameInput`).value=``;
+        document.getElementById(`dateInput`).value=``;
+        document.getElementById(`timeInput`).value=``;
+        document.getElementById(`folderInput`).value=defaultFolderName;
+    }
     
-//     function reprintTasks(){
-//         for (let i = 0; i < TaskArray.length; i++) {
-//             rightFormRow.parentNode.insertBefore(TaskArray[i].writeRow(),rightFormRow);
-//         }
-//     }
-// }
+    function reprintTasks(){
+        for (let i = 0; i < allTasks.length; i++) {
+            rightFormRow.parentNode.insertBefore(allTasks[i].writeRow(),rightFormRow);
+        }
+    }
+}
 
-// function addTask(TaskArray,title,folder,date){
-//     TaskArray.push(new Task(title,folder,date));
-// }
+function addTask(title,folder,date){
+    allTasks.push(new Task(title,folder,date));
+}
 
+let allTasks=[];
 
-
-
-export{tableWrite,printTasks};
+// addTask("Dünyanın Fethi");
+// addTask("Dünyanın Temizlenmesi","önemli","29.11.2023");
+export{tableWrite,printTasks,addNewTask};
