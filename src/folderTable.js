@@ -33,7 +33,6 @@ function addNewFolder(){
         newOption.value=numberOfOptions;
         newOption.textContent=newName;
         document.getElementById(`folderInput`).appendChild(newOption);
-        // fInput.setAttribute(`id`,`folderInput`);
     }
 }
 
@@ -77,12 +76,27 @@ function leftForm(){
     return leftForm;
 }
 
-let allFolders=[];
 
-addFolder(defaultFolderName);
+// localStorage.setItem("folders_JSON", JSON.stringify(allFolders));
+
 
 function addFolder(name,color){
     allFolders.push(new Folder(name,color));
+    localStorage.setItem("folders_JSON", JSON.stringify(allFolders));
 }
+
+let allFolders=[];
+
+
+if(JSON.parse(localStorage.getItem("folders_JSON"))) {
+    const RecordedFolders=JSON.parse(localStorage.getItem("folders_JSON"));
+    for (const pastFolder of RecordedFolders){
+        addFolder(pastFolder.folderName,pastFolder.color);
+    }
+}
+else{    
+    addFolder(defaultFolderName);
+}
+
 
 export{addNewFolder,allFolders,leftBar};
