@@ -1,5 +1,9 @@
 const leftButtonColor= `#898396`;
 
+const defaultFolderName= `genel`;
+export {defaultFolderName};
+
+
 export class Folder{
     constructor(folderName, color){
         this.folderName = folderName;

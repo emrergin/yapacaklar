@@ -110,6 +110,10 @@ td{
     font-size: 20px;
 }
 
+/* td:first-child{
+    padding-left: 2%;
+} */
+
 .container{
     display:flex;
     align-items: flex-start;

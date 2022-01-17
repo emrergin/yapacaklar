@@ -1,7 +1,8 @@
+// import {Folder} from './folder';
 import { intervalToDuration } from 'date-fns'
 
-const defaultFolderName= `genel`;
-export {defaultFolderName};
+const tableBackgroundColor=`#FFFFFF`;
+
 
 export class Task{
     constructor(taskName, folder, lastDate){
@@ -24,6 +25,10 @@ export class Task{
         // name.style.cssText=`border-left: 2vw solid red;`;
         // name.textContent=this.taskName+this.colour;
         name.textContent=this.taskName;
+        // name.style.cssText=`background: linear-gradient(to right,${this.folder.color} 15% ,${tableBackgroundColor} 15%);`;
+        name.style.cssText=`border-left: 2vw solid ${this.folder.color};`;
+
+        // Link.style.cssText=`background: linear-gradient(to right,${tableBackgroundColor} 85%,${this.color}  80%);`;
         row.appendChild(name);
 
         date.textContent=this.lastDate;

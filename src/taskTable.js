@@ -1,4 +1,6 @@
-import {Task,defaultFolderName} from './tasks';
+import {Task} from './tasks';
+import {allFolders} from './folderTable';
+import {defaultFolderName} from './folder';
 
 function tableWrite(){
     const tableContainer=document.createElement(`div`);
@@ -49,7 +51,7 @@ function tableWrite(){
     
         const fInput=document.createElement(`select`);
         const defaultOption=document.createElement(`option`);
-        defaultOption.value=defaultFolderName;
+        defaultOption.value=0;
         defaultOption.textContent=defaultFolderName;
         fInput.appendChild(defaultOption);
         fInput.setAttribute(`id`,`folderInput`);
@@ -78,7 +80,7 @@ function addNewTask(){
         let newDate=document.getElementById(`dateInput`).value;
         if (newDate!==``){newDate=newDate.match(/\d+/g).reverse().join(`.`)}
         let newTime=document.getElementById(`timeInput`).value;
-        let newFolder=document.getElementById(`folderInput`).value;
+        let newFolder=allFolders[document.getElementById(`folderInput`).value];
 
         const rightFormRow= document.getElementById(`rightFormRow`);
 
@@ -93,7 +95,7 @@ function addNewTask(){
         document.getElementById(`taskNameInput`).value=``;
         document.getElementById(`dateInput`).value=``;
         document.getElementById(`timeInput`).value=``;
-        document.getElementById(`folderInput`).value=defaultFolderName;
+        document.getElementById(`folderInput`).value=0;
     }
     
     function reprintTasks(){
