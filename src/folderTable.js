@@ -23,7 +23,9 @@ function addNewFolder(){
     
     function reprintFolders(){
         for (let i = 0; i < allFolders.length; i++) {
-            leftForm1.parentNode.insertBefore(allFolders[i].writeRow(),leftForm1);
+            const folderRow=allFolders[i].writeRow();
+            folderRow.addEventListener('click', filterFolders);
+            leftForm1.parentNode.insertBefore(folderRow,leftForm1);
         }
     }
 
@@ -39,9 +41,10 @@ function addNewFolder(){
 function leftBar(){
     const leftLinks=document.createElement('div');
 
-    for (let i = 0; i < allFolders.length; i++) {
-       
-        leftLinks.appendChild(allFolders[i].writeRow());
+    for (let i = 0; i < allFolders.length; i++) {             
+        const folderRow=allFolders[i].writeRow();
+        folderRow.addEventListener('click', filterFolders);
+        leftLinks.appendChild(folderRow);
     }
 
     const addFolder=document.createElement(`button`);
@@ -77,15 +80,24 @@ function leftForm(){
 }
 
 
-// localStorage.setItem("folders_JSON", JSON.stringify(allFolders));
-
-
 function addFolder(name,color){
     allFolders.push(new Folder(name,color));
     localStorage.setItem("folders_JSON", JSON.stringify(allFolders));
 }
 
+// function reprintTasks(TaskArray){
+//     const rightFormRow= document.getElementById(`rightFormRow`);
+//     for (let i = 0; i < TaskArray.length; i++) {
+//         rightFormRow.parentNode.insertBefore(TaskArray[i].writeRow(),rightFormRow);
+//     }
+// }
+
+function filterFolders(e){
+    console.log(e.target.textContent);
+}
+
 let allFolders=[];
+// document.getElementById(`leftLink`).addEventListener("click", addNewFolder);
 
 
 if(JSON.parse(localStorage.getItem("folders_JSON"))) {
@@ -97,6 +109,12 @@ if(JSON.parse(localStorage.getItem("folders_JSON"))) {
 else{    
     addFolder(defaultFolderName);
 }
+
+// const leftLinks = document.querySelectorAll('.leftLink');
+
+// leftLinks.forEach((leftLnk) => {
+    // leftLnk.addEventListener('click', filterFolders);
+// });
 
 
 export{addNewFolder,allFolders,leftBar};

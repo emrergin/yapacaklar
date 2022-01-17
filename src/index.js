@@ -41,12 +41,15 @@ function header(){
     return Head;
 }
 
+
+
 // HERE IS THE MAIN PART==================
 
 
 document.body.appendChild(mainLoader());
 document.getElementById(`buttonAddTask`).addEventListener("click", addNewTask);
 document.getElementById(`buttonAddFolder`).addEventListener("click", addNewFolder);
+// let leftButtons= document.querySelector(selectors);
 
 
 

@@ -77,12 +77,19 @@ body{
     padding: 1vmax 24vmin 1vmax 1vmin;
     font-weight: 800;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+    cursor: pointer;
+    user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
 }
 
 button{
     font-weight: 800;
     font-size: 1.25em;
     width:100%;
+    cursor: pointer;
 }
 
 
