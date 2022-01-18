@@ -5,9 +5,10 @@ export {defaultFolderName};
 
 
 export class Folder{
-    constructor(folderName, color){
+    constructor(folderName, color,id){
         this.folderName = folderName;
         this.color = color || ``;
+        this.id = id;
     }
 
 

@@ -11,6 +11,7 @@ Still ongoing.
 - This is also my first project that tries to use exclusively English for variable names and such to increase code readability.
 - `colspan` property is only valid for elements with `display:table-row`, meaning it is incompatible with `flexbox`.
 - This is my first time using `linear-gradient` property.
+- Be aware when you are using object properties when filtering. `==` might be preferred over `===`;
 
 ### Sources
 - https://fonts.google.com/specimen/Open+Sans

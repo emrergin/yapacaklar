@@ -9,6 +9,7 @@ export class Task{
         this.taskName = taskName;
         this.folder = folder || defaultFolderName;
         this.lastDate = lastDate || ``;
+        // console.log(this.folder.id);
     }
 
     writeRow(){

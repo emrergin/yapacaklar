@@ -26,6 +26,7 @@ function addNewFolder(){
         for (let i = 0; i < allFolders.length; i++) {
             const folderRow=allFolders[i].writeRow();
             folderRow.addEventListener('click', filterFolders);
+            folderRow.dataset.folderId=allFolders[i].id;
             leftForm1.parentNode.insertBefore(folderRow,leftForm1);
         }
     }
@@ -45,13 +46,15 @@ function leftBar(){
     for (let i = 0; i < allFolders.length; i++) {             
         const folderRow=allFolders[i].writeRow();
         folderRow.addEventListener('click', filterFolders);
-        leftLinks.appendChild(folderRow);
+        folderRow.dataset.folderId=allFolders[i].id;
+        leftLinks.appendChild(folderRow);        
     }
 
     const addFolder=document.createElement(`button`);
     addFolder.textContent=`+`;
     addFolder.setAttribute(`id`,`buttonAddFolder`);
     addFolder.addEventListener("click", addNewFolder);
+    
 
     leftLinks.appendChild(leftForm());
     leftLinks.appendChild(addFolder);
@@ -83,7 +86,13 @@ function leftForm(){
 
 
 function addFolder(name,color){
-    allFolders.push(new Folder(name,color));
+    if (allFolders.length===0){
+        allFolders.push(new Folder(name,color,0));
+    }else{
+        let newId=allFolders[allFolders.length-1].id+1;
+        allFolders.push(new Folder(name,color,newId));
+    }
+    
     localStorage.setItem("folders_JSON", JSON.stringify(allFolders));
 }
 
@@ -93,8 +102,10 @@ function filterFolders(e){
     while(rightFormRow.previousSibling){
         rightFormRow.previousSibling.remove();
     }
+    console.log(allTasks);
 
-    let subTasks=allTasks.filter(task => (task.folder.folderName===e.target.textContent));
+    let relatedId=e.target.dataset.folderId
+    let subTasks=allTasks.filter(task => (task.folder.id==relatedId));
 
     reprintTasks();
 
