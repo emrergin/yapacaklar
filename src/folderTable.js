@@ -1,5 +1,6 @@
 import {randomBetween,ConvertRGBtoHex}  from './requisites';
 import {Folder,defaultFolderName} from './folder';
+import {allTasks} from './taskTable';
 
 function addNewFolder(){
     let newName=document.getElementById(`folderNameInput`).value;
@@ -50,6 +51,7 @@ function leftBar(){
     const addFolder=document.createElement(`button`);
     addFolder.textContent=`+`;
     addFolder.setAttribute(`id`,`buttonAddFolder`);
+    addFolder.addEventListener("click", addNewFolder);
 
     leftLinks.appendChild(leftForm());
     leftLinks.appendChild(addFolder);
@@ -85,19 +87,26 @@ function addFolder(name,color){
     localStorage.setItem("folders_JSON", JSON.stringify(allFolders));
 }
 
-// function reprintTasks(TaskArray){
-//     const rightFormRow= document.getElementById(`rightFormRow`);
-//     for (let i = 0; i < TaskArray.length; i++) {
-//         rightFormRow.parentNode.insertBefore(TaskArray[i].writeRow(),rightFormRow);
-//     }
-// }
 
 function filterFolders(e){
-    console.log(e.target.textContent);
+    const rightFormRow= document.getElementById(`rightFormRow`);
+    while(rightFormRow.previousSibling){
+        rightFormRow.previousSibling.remove();
+    }
+
+    let subTasks=allTasks.filter(task => (task.folder.folderName===e.target.textContent));
+
+    reprintTasks();
+
+    function reprintTasks(){
+        for (let i = 0; i < subTasks.length; i++) {
+            rightFormRow.parentNode.insertBefore(subTasks[i].writeRow(),rightFormRow);
+        }
+    }
 }
 
+
 let allFolders=[];
-// document.getElementById(`leftLink`).addEventListener("click", addNewFolder);
 
 
 if(JSON.parse(localStorage.getItem("folders_JSON"))) {
@@ -110,11 +119,6 @@ else{
     addFolder(defaultFolderName);
 }
 
-// const leftLinks = document.querySelectorAll('.leftLink');
-
-// leftLinks.forEach((leftLnk) => {
-    // leftLnk.addEventListener('click', filterFolders);
-// });
 
 
 export{addNewFolder,allFolders,leftBar};

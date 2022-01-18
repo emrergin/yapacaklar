@@ -1,8 +1,8 @@
-import {tableWrite,addNewTask} from './taskTable';
+import {tableWrite} from './taskTable';
 import checkImg from './ok.png';
 import './style.css';
 import {generateFooter}  from './requisites';
-import {leftBar,addNewFolder} from './folderTable';
+import {leftBar} from './folderTable';
 
 
 function mainLoader() {
@@ -47,9 +47,3 @@ function header(){
 
 
 document.body.appendChild(mainLoader());
-document.getElementById(`buttonAddTask`).addEventListener("click", addNewTask);
-document.getElementById(`buttonAddFolder`).addEventListener("click", addNewFolder);
-// let leftButtons= document.querySelector(selectors);
-
-
-

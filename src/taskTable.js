@@ -6,7 +6,6 @@ function tableWrite(){
     const tableContainer=document.createElement(`div`);
     tableContainer.classList.add(`container`);
     const table=document.createElement('table');
-    // table.setAttribute(`id`,`taskTable`);
     printTasks(allTasks);
 
     const formContainer=document.createElement(`div`);
@@ -16,6 +15,7 @@ function tableWrite(){
     addTask.textContent=`+`;
     addTask.style.cssText=`padding-left: 2vw; padding-right: 2vw`;
     addTask.setAttribute(`id`,`buttonAddTask`);
+    addTask.addEventListener("click", addNewTask);
     formContainer.appendChild(addTask);
     formContainer.appendChild(createRightForm());
 
@@ -38,7 +38,6 @@ function tableWrite(){
     
         const rInput=document.createElement(`input`);
         rInput.type=`text`;
-        // rInput.minLength=1;
         rInput.required = true;
         rInput.setAttribute(`id`,`taskNameInput`);
     
@@ -122,8 +121,7 @@ function addNewTask(){
 
 function addTask(title,folder,date){
     allTasks.push(new Task(title,folder,date));
-    localStorage.setItem("tasks_JSON", JSON.stringify(allTasks));
-    // console.log(allTasks);
+    localStorage.setItem("tasks_JSON", JSON.stringify(allTasks))
 }
 
 let allTasks=[];
@@ -136,10 +134,11 @@ if(JSON.parse(localStorage.getItem("tasks_JSON"))) {
     }
 }
 else{    
-    // addFolder(defaultFolderName);
+    
 }
 
 
 // addTask("Dünyanın Fethi");
 // addTask("Dünyanın Temizlenmesi","önemli","29.11.2023");
-export{tableWrite,addNewTask};
+
+export{tableWrite,addNewTask,allTasks};
