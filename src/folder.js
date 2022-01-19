@@ -13,9 +13,24 @@ export class Folder{
 
 
     writeRow(){
-        let Link=document.createElement('div');
-        Link.textContent=this.folderName;
+        let Link= document.createElement(`div`);
         Link.classList.add(`leftLink`);
+
+        if (this.id!==0)
+        {
+            let  deleteButton=document.createElement(`button`);
+
+            deleteButton.textContent=`x`;
+            deleteButton.classList.add(`leftDelete`);
+            
+            Link.appendChild(deleteButton);
+        }
+
+        let buttonText=document.createElement('div');
+        buttonText.textContent=this.folderName;
+        buttonText.classList.add(`leftFolder`);
+        Link.appendChild(buttonText);
+
         if (this.color===``){
             Link.style.backgroundColor=leftButtonColor;
         }

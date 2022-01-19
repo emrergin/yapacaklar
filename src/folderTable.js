@@ -26,6 +26,7 @@ function addNewFolder(){
         for (let i = 0; i < allFolders.length; i++) {
             const folderRow=allFolders[i].writeRow();
             folderRow.addEventListener('click', filterFolders);
+            folderRow.firstChild.addEventListener('click', removeFolder);
             folderRow.dataset.folderId=allFolders[i].id;
             leftForm1.parentNode.insertBefore(folderRow,leftForm1);
         }
@@ -45,7 +46,8 @@ function leftBar(){
 
     for (let i = 0; i < allFolders.length; i++) {             
         const folderRow=allFolders[i].writeRow();
-        folderRow.addEventListener('click', filterFolders);
+        folderRow.addEventListener('click', filterFolders);     
+        folderRow.firstChild.addEventListener('click', removeFolder);
         folderRow.dataset.folderId=allFolders[i].id;
         leftLinks.appendChild(folderRow);        
     }
@@ -86,12 +88,16 @@ function leftForm(){
 
 
 function addFolder(name,color){
+    let newId=0;
     if (allFolders.length===0){
         allFolders.push(new Folder(name,color,0));
     }else{
-        let newId=allFolders[allFolders.length-1].id+1;
+        // let newId=allFolders.length;
+        while (allFolders.filter(folder => folder.id===newId).length){
+            newId+=1;
+        }
         allFolders.push(new Folder(name,color,newId));
-    }
+    }    
     
     localStorage.setItem("folders_JSON", JSON.stringify(allFolders));
 }
@@ -99,23 +105,59 @@ function addFolder(name,color){
 
 function filterFolders(e){
     const rightFormRow= document.getElementById(`rightFormRow`);
-    while(rightFormRow.previousSibling){
-        rightFormRow.previousSibling.remove();
+
+    if (!e.target.classList.contains(`leftDelete`)){
+        while(rightFormRow.previousSibling){
+            rightFormRow.previousSibling.remove();
+        }
+    
+        let relatedId=e.target.dataset.folderId;
+        let subTasks=allTasks.filter(task => (task.folder.id==relatedId));
+    
+        reprintTasks(subTasks);
+
     }
-    console.log(allTasks);
 
-    let relatedId=e.target.dataset.folderId
-    let subTasks=allTasks.filter(task => (task.folder.id==relatedId));
-
-    reprintTasks();
-
-    function reprintTasks(){
+    function reprintTasks(subTasks){
         for (let i = 0; i < subTasks.length; i++) {
             rightFormRow.parentNode.insertBefore(subTasks[i].writeRow(),rightFormRow);
         }
     }
 }
 
+function removeFolder(e){
+    let relatedId=e.target.parentNode.dataset.folderId;
+    let subTasks=allTasks.filter(task => (task.folder.id==relatedId));
+    for (let task of subTasks){
+        task.folder=allFolders[0];
+    }
+    for (let i = 0; i < allFolders.length; i++) {
+       if (allFolders[i].id==relatedId){
+           allFolders.splice(i,1);
+           break;
+       }
+    }  
+
+    function reprintTasks(subTasks){
+        for (let i = 0; i < subTasks.length; i++) {
+            rightFormRow.parentNode.insertBefore(subTasks[i].writeRow(),rightFormRow);
+        }
+    }
+
+    const rightFormRow= document.getElementById(`rightFormRow`);
+    while(rightFormRow.previousSibling){
+        rightFormRow.previousSibling.remove();
+    }
+    reprintTasks(allTasks); 
+    
+    localStorage.setItem("folders_JSON", JSON.stringify(allFolders));
+    localStorage.setItem("tasks_JSON", JSON.stringify(allTasks));
+
+    e.target.parentNode.remove();
+}
+
+
+//======================================
 
 let allFolders=[];
 

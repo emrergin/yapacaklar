@@ -121,7 +121,7 @@ function addNewTask(){
 
 function addTask(title,folder,date){
     allTasks.push(new Task(title,folder,date));
-    localStorage.setItem("tasks_JSON", JSON.stringify(allTasks))
+    localStorage.setItem("tasks_JSON", JSON.stringify(allTasks));
 }
 
 let allTasks=[];
