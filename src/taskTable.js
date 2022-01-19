@@ -76,7 +76,12 @@ function tableWrite(){
 
     function printTasks(){
         for (let i = 0; i < allTasks.length; i++) {
-            table.appendChild(allTasks[i].writeRow());
+            // table.appendChild(allTasks[i].writeRow());
+
+            const taskRow=allTasks[i].writeRow();
+            taskRow.dataset.taskId=allTasks[i].id;
+            taskRow.getElementsByTagName(`input`)[0].addEventListener("change", toggleCompleted);
+            table.appendChild(taskRow);   
         }
     }
 }
@@ -95,13 +100,7 @@ function addNewTask(){
             // let newTime=document.getElementById(`timeInput`).value;
             let newFolder=allFolders[document.getElementById(`folderInput`).value];
     
-            const rightFormRow= document.getElementById(`rightFormRow`);
-    
             addTask(newName,newFolder,newDate);
-    
-            while(rightFormRow.previousSibling){
-                rightFormRow.previousSibling.remove();
-            }
     
             reprintTasks();
     
@@ -110,19 +109,53 @@ function addNewTask(){
             // document.getElementById(`timeInput`).value=``;
             document.getElementById(`folderInput`).value=0;
         }
+    }    
+}
+
+function reprintTasks(){
+    const rightFormRow= document.getElementById(`rightFormRow`);
+    while(rightFormRow.previousSibling){
+        rightFormRow.previousSibling.remove();
     }
-    
-    function reprintTasks(){
-        for (let i = 0; i < allTasks.length; i++) {
-            rightFormRow.parentNode.insertBefore(allTasks[i].writeRow(),rightFormRow);
-        }
+
+    for (let i = 0; i < allTasks.length; i++) {
+        const taskRow=allTasks[i].writeRow();
+        taskRow.dataset.taskId=allTasks[i].id;
+        taskRow.getElementsByTagName(`input`)[0].addEventListener("change", toggleCompleted);
+        rightFormRow.parentNode.insertBefore(taskRow,rightFormRow);
     }
 }
 
 function addTask(title,folder,date){
-    allTasks.push(new Task(title,folder,date));
+    // allTasks.push(new Task(title,folder,date));
+
+    let newId=0;
+    if (allTasks.length===0){
+        allTasks.push(new Task(title,folder,date,0));
+    }else{
+        while (allTasks.filter(task => task.id===newId).length){
+            newId+=1;
+        }
+        allTasks.push(new Task(title,folder,date,newId));
+    }
+
     localStorage.setItem("tasks_JSON", JSON.stringify(allTasks));
 }
+
+function toggleCompleted(e){
+
+    let relatedId=e.target.parentNode.parentNode.dataset.taskId;
+
+    for (let i = 0; i < allTasks.length; i++) {
+       if (allTasks[i].id==relatedId){
+           allTasks[i].completed=! allTasks[i].completed;
+           break;
+       }
+    }
+    reprintTasks();
+    localStorage.setItem("tasks_JSON", JSON.stringify(allTasks));
+}
+
 
 let allTasks=[];
 
@@ -136,6 +169,7 @@ if(JSON.parse(localStorage.getItem("tasks_JSON"))) {
 else{    
     
 }
+
 
 
 // addTask("Dünyanın Fethi");

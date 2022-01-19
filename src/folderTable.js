@@ -1,4 +1,4 @@
-import {randomBetween,ConvertRGBtoHex}  from './requisites';
+import {randomBetween,ConvertRGBtoHex,removeOptions}  from './requisites';
 import {Folder,defaultFolderName} from './folder';
 import {allTasks} from './taskTable';
 
@@ -92,7 +92,6 @@ function addFolder(name,color){
     if (allFolders.length===0){
         allFolders.push(new Folder(name,color,0));
     }else{
-        // let newId=allFolders.length;
         while (allFolders.filter(folder => folder.id===newId).length){
             newId+=1;
         }
@@ -149,11 +148,27 @@ function removeFolder(e){
         rightFormRow.previousSibling.remove();
     }
     reprintTasks(allTasks); 
+    remakeDropdown();
     
     localStorage.setItem("folders_JSON", JSON.stringify(allFolders));
     localStorage.setItem("tasks_JSON", JSON.stringify(allTasks));
 
     e.target.parentNode.remove();
+
+    function remakeDropdown(){
+        const selectList=document.getElementById(`folderInput`);
+        removeOptions(selectList);
+
+        // console.log(allFolders);
+
+        for (let i = 0; i < allFolders.length; i++) {
+
+            const folderOption=document.createElement(`option`);
+            folderOption.value=i;
+            folderOption.textContent=allFolders[i].folderName;
+            selectList.appendChild(folderOption);
+        }
+    }
 }
 
 

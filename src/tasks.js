@@ -1,14 +1,16 @@
-// import {Folder} from './folder';
+import {defaultFolderName} from './folder';
 import { intervalToDuration } from 'date-fns'
 
 const tableBackgroundColor=`#FFFFFF`;
 
 
 export class Task{
-    constructor(taskName, folder, lastDate){
+    constructor(taskName, folder, lastDate,id){
         this.taskName = taskName;
         this.folder = folder || defaultFolderName;
         this.lastDate = lastDate || ``;
+        this.id=id;
+        this.completed=false;
         // console.log(this.folder.id);
     }
 
@@ -16,20 +18,33 @@ export class Task{
         let row= document.createElement('tr');
         row.classList.add(`taskRow`);
         let name= document.createElement('td');
-        let project= document.createElement('td');
         let date= document.createElement('td');
         let remaining=document.createElement(`td`);
+        let checkMarkBox=document.createElement(`td`);
+
+        let checkMark=document.createElement(`input`);
+        checkMark.setAttribute(`type`,`checkbox`);
+        checkMark.checked=this.completed;
+        checkMarkBox.appendChild(checkMark);
+        checkMarkBox.style.border=`0px`;
+        checkMarkBox.style.padding=`0px`;
+        row.appendChild(checkMarkBox);
 
         name.textContent=this.taskName;
         name.style.cssText=`border-left: 2vw solid ${this.folder.color};`;
         row.appendChild(name);
 
         date.textContent=this.lastDate;
-        if (this.lastDate===``){date.style.cssText=`border:0px;`;}
+        if (this.lastDate===``){date.style.border=`0px`;}
         row.appendChild(date);
 
         this.lastDate===`` ? remaining.textContent=``: remaining.textContent=this.remainingTime();   
-        if (this.lastDate===``){remaining.style.cssText=`border:0px;`;}
+        if (this.lastDate===``){remaining.style.border=`0px`;}
+        if (this.completed){
+            name.style.textDecoration=`line-through`;
+            name.style.border=`0px`;
+        }
+
         row.appendChild(remaining);
         
         return row;

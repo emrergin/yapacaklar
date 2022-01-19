@@ -77,7 +77,10 @@ body{
     /* justify-content: space-between; */
     gap: 3vmin;
     border-radius: 0.5vmin;
-    padding: 1vmax 21vmin 1vmax 1vmin;
+    /* padding: 1vmax 21vmin 1vmax 1vmin; */
+    padding: 1vmax;
+    /* text-ali */
+    height: 7vh;
     font-weight: 800;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
     cursor: pointer;
@@ -92,14 +95,14 @@ body{
     width: 3vmin;
     height: 3vmin;
     border-radius: 50%;
-    text-align: center;
+    text-align: top;
     display: flex;
     background-color: #E94F37;
     color:#FFFFFF;
     font-weight: 800;
     font-size: 1.25em;
     border: 0px;
-    align-items: center;
+    /* align-items: center; */
     justify-content: center;
     /* box-shadow: 0px 0.25vmin black; */
      /* box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset; */
@@ -171,6 +174,10 @@ td{
 .formContainer{
     display:flex;
     justify-content: space-between;
+}
+
+input[type=checkbox] {
+    transform: scale(1.5);
 }
 
 /* input{

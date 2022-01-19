@@ -20,7 +20,7 @@ export class Folder{
         {
             let  deleteButton=document.createElement(`button`);
 
-            deleteButton.textContent=`x`;
+            deleteButton.textContent=`×`;
             deleteButton.classList.add(`leftDelete`);
             
             Link.appendChild(deleteButton);

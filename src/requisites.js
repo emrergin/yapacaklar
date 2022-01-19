@@ -19,4 +19,11 @@ function generateFooter() {
     return bottomBar;
 }
 
-export{randomBetween,ConvertRGBtoHex,generateFooter};
+function removeOptions(selectElement) {
+    var i, L = selectElement.options.length-1;
+    for(i = L; i >= 0; i--) {
+       selectElement.remove(i);
+    }
+}
+
+export{randomBetween,ConvertRGBtoHex,generateFooter,removeOptions};
