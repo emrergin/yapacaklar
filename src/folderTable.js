@@ -1,6 +1,6 @@
 import {randomBetween,ConvertRGBtoHex,removeOptions}  from './requisites';
 import {Folder,defaultFolderName} from './folder';
-import {allTasks} from './taskTable';
+import {allTasks,reprintTasks} from './taskTable';
 
 function addNewFolder(){
     let newName=document.getElementById(`folderNameInput`).value;
@@ -101,26 +101,13 @@ function addFolder(name,color){
     localStorage.setItem("folders_JSON", JSON.stringify(allFolders));
 }
 
-
 function filterFolders(e){
-    const rightFormRow= document.getElementById(`rightFormRow`);
-
     if (!e.target.classList.contains(`leftDelete`)){
-        while(rightFormRow.previousSibling){
-            rightFormRow.previousSibling.remove();
-        }
     
         let relatedId=e.target.dataset.folderId;
-        let subTasks=allTasks.filter(task => (task.folder.id==relatedId));
+        currentFolderId=relatedId;
     
-        reprintTasks(subTasks);
-
-    }
-
-    function reprintTasks(subTasks){
-        for (let i = 0; i < subTasks.length; i++) {
-            rightFormRow.parentNode.insertBefore(subTasks[i].writeRow(),rightFormRow);
-        }
+        reprintTasks();
     }
 }
 
@@ -135,19 +122,10 @@ function removeFolder(e){
            allFolders.splice(i,1);
            break;
        }
-    }  
-
-    function reprintTasks(subTasks){
-        for (let i = 0; i < subTasks.length; i++) {
-            rightFormRow.parentNode.insertBefore(subTasks[i].writeRow(),rightFormRow);
-        }
     }
 
-    const rightFormRow= document.getElementById(`rightFormRow`);
-    while(rightFormRow.previousSibling){
-        rightFormRow.previousSibling.remove();
-    }
-    reprintTasks(allTasks); 
+    currentFolderId=0;
+    reprintTasks(); 
     remakeDropdown();
     
     localStorage.setItem("folders_JSON", JSON.stringify(allFolders));
@@ -159,7 +137,6 @@ function removeFolder(e){
         const selectList=document.getElementById(`folderInput`);
         removeOptions(selectList);
 
-        // console.log(allFolders);
 
         for (let i = 0; i < allFolders.length; i++) {
 
@@ -175,6 +152,7 @@ function removeFolder(e){
 //======================================
 
 let allFolders=[];
+let currentFolderId=-1;
 
 
 if(JSON.parse(localStorage.getItem("folders_JSON"))) {
@@ -189,4 +167,4 @@ else{
 
 
 
-export{addNewFolder,allFolders,leftBar};
+export{addNewFolder,allFolders,leftBar,currentFolderId};

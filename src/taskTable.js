@@ -1,5 +1,5 @@
 import {Task} from './tasks';
-import {allFolders} from './folderTable';
+import {allFolders,currentFolderId} from './folderTable';
 // import {defaultFolderName} from './folder';
 
 function tableWrite(){
@@ -103,6 +103,7 @@ function addNewTask(){
     
             addTask(newName,newFolder,newDate);
     
+            currentFolderId=-1;
             reprintTasks();
     
             document.getElementById(`taskNameInput`).value=``;
@@ -114,19 +115,25 @@ function addNewTask(){
 }
 
 function reprintTasks(){
+    let taskArray=allTasks;
+    if (currentFolderId!==-1){
+        taskArray=allTasks.filter(task => (task.folder.id==currentFolderId));
+    }
+
     const rightFormRow= document.getElementById(`rightFormRow`);
     while(rightFormRow.previousSibling){
         rightFormRow.previousSibling.remove();
     }
 
-    for (let i = 0; i < allTasks.length; i++) {
-        const taskRow=allTasks[i].writeRow();
-        taskRow.dataset.taskId=allTasks[i].id;
+    for (let i = 0; i < taskArray.length; i++) {
+        const taskRow=taskArray[i].writeRow();
+        taskRow.dataset.taskId=taskArray[i].id;
         taskRow.getElementsByTagName(`input`)[0].addEventListener("change", toggleCompleted);
         taskRow.getElementsByTagName(`button`)[0].addEventListener("click", removeTask);
         rightFormRow.parentNode.insertBefore(taskRow,rightFormRow);
     }
 }
+
 
 function addTask(title,folder,date){
     // allTasks.push(new Task(title,folder,date));
@@ -146,7 +153,7 @@ function addTask(title,folder,date){
 
 function toggleCompleted(e){
 
-    let relatedId=e.target.parentNode.parentNode.dataset.taskId;
+    let relatedId=e.target.parentNode.parentNode.parentNode.dataset.taskId;
 
     for (let i = 0; i < allTasks.length; i++) {
        if (allTasks[i].id==relatedId){
@@ -193,4 +200,4 @@ else{
 // addTask("Dünyanın Fethi");
 // addTask("Dünyanın Temizlenmesi","önemli","29.11.2023");
 
-export{tableWrite,addNewTask,allTasks};
+export{tableWrite,addNewTask,allTasks,reprintTasks};

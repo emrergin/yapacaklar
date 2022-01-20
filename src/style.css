@@ -181,6 +181,11 @@ input[type=checkbox] {
     transform: scale(1.5);
 }
 
+.nameandcheck{
+    display: inline-flex;
+    gap: 1vw;
+}
+
 /* input{
     font-size: 1.5em;
 } */

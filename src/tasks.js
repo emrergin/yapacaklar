@@ -17,23 +17,25 @@ export class Task{
     writeRow(){
         let row= document.createElement('tr');
         row.classList.add(`taskRow`);
-        let name= document.createElement('td');
+        let nameAndCheckboksContainer= document.createElement('td');
+        let nameAndCheckboks=document.createElement(`div`);
         let date= document.createElement('td');
         let remaining=document.createElement(`td`);
-        let checkMarkBox=document.createElement(`td`);
         let deleteButtonBox=document.createElement(`td`);
 
         let checkMark=document.createElement(`input`);
         checkMark.setAttribute(`type`,`checkbox`);
         checkMark.checked=this.completed;
-        checkMarkBox.appendChild(checkMark);
-        checkMarkBox.style.border=`0px`;
-        checkMarkBox.style.padding=`0px`;
-        row.appendChild(checkMarkBox);
+        nameAndCheckboks.appendChild(checkMark);
 
+        let name=document.createElement(`div`);
         name.textContent=this.taskName;
-        name.style.cssText=`border-left: 2vw solid ${this.folder.color};`;
-        row.appendChild(name);
+        // 
+        nameAndCheckboks.appendChild(name);
+        nameAndCheckboks.classList.add(`nameandcheck`);
+        nameAndCheckboksContainer.appendChild(nameAndCheckboks);
+        nameAndCheckboksContainer.style.cssText=`background: linear-gradient(to right,${this.folder.color} 2vw, white 2vw);`;
+        row.appendChild(nameAndCheckboksContainer);
 
         date.textContent=this.lastDate;
         if (this.lastDate===``){date.style.border=`0px`;}
