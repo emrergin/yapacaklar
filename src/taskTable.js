@@ -81,6 +81,7 @@ function tableWrite(){
             const taskRow=allTasks[i].writeRow();
             taskRow.dataset.taskId=allTasks[i].id;
             taskRow.getElementsByTagName(`input`)[0].addEventListener("change", toggleCompleted);
+            taskRow.getElementsByTagName(`button`)[0].addEventListener("click", removeTask);
             table.appendChild(taskRow);   
         }
     }
@@ -122,6 +123,7 @@ function reprintTasks(){
         const taskRow=allTasks[i].writeRow();
         taskRow.dataset.taskId=allTasks[i].id;
         taskRow.getElementsByTagName(`input`)[0].addEventListener("change", toggleCompleted);
+        taskRow.getElementsByTagName(`button`)[0].addEventListener("click", removeTask);
         rightFormRow.parentNode.insertBefore(taskRow,rightFormRow);
     }
 }
@@ -154,6 +156,22 @@ function toggleCompleted(e){
     }
     reprintTasks();
     localStorage.setItem("tasks_JSON", JSON.stringify(allTasks));
+}
+
+function removeTask(e){
+    let relatedId=e.target.parentNode.parentNode.dataset.taskId;
+
+    for (let i = 0; i < allTasks.length; i++) {
+        if (allTasks[i].id==relatedId){
+            allTasks.splice(i,1);
+            break;
+        }
+     }
+
+    reprintTasks();
+    localStorage.setItem("tasks_JSON", JSON.stringify(allTasks));
+
+    e.target.parentNode.remove();
 }
 
 

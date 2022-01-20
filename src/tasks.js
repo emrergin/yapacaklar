@@ -21,6 +21,7 @@ export class Task{
         let date= document.createElement('td');
         let remaining=document.createElement(`td`);
         let checkMarkBox=document.createElement(`td`);
+        let deleteButtonBox=document.createElement(`td`);
 
         let checkMark=document.createElement(`input`);
         checkMark.setAttribute(`type`,`checkbox`);
@@ -44,8 +45,15 @@ export class Task{
             name.style.textDecoration=`line-through`;
             name.style.border=`0px`;
         }
-
         row.appendChild(remaining);
+
+        let deleteButton=document.createElement(`button`);
+        deleteButton.textContent=`×`;
+        deleteButton.classList.add(`leftDelete`);
+        deleteButtonBox.appendChild(deleteButton);
+        deleteButtonBox.style.border=`0px`;
+        deleteButtonBox.style.padding=`0px`;        
+        row.appendChild(deleteButtonBox);
         
         return row;
     }

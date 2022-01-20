@@ -73,7 +73,8 @@ body{
 .leftLink{
     /* background-color: var(--bannerrenk); */
     color:var(--banneryazirenk);
-    display: flex;
+    display: inline-flex;
+    align-items: flex-start;
     /* justify-content: space-between; */
     gap: 3vmin;
     border-radius: 0.5vmin;
