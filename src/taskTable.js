@@ -45,19 +45,14 @@ function tableWrite(){
         dInput.type=`date`;
         dInput.setAttribute(`id`,`dateInput`);
     
-        // const tInput=document.createElement(`input`);
-        // tInput.type=`time`;
-        // tInput.setAttribute(`id`,`timeInput`);
+        const tInput=document.createElement(`input`);
+        tInput.type=`time`;
+        tInput.setAttribute(`id`,`timeInput`);
     
         const fInput=document.createElement(`select`);
         fInput.setAttribute(`id`,`folderInput`);
 
         for (let i = 0; i < allFolders.length; i++) {
-            // const newOption=document.createElement(`option`);
-            // let numberOfOptions = document.getElementById(`folderInput`).options.length;
-            // newOption.value=numberOfOptions;
-            // newOption.textContent=newName;
-            // document.getElementById(`folderInput`).appendChild(newOption);
             const folderOption=document.createElement(`option`);
             folderOption.value=i;
             folderOption.textContent=allFolders[i].folderName;
@@ -66,7 +61,7 @@ function tableWrite(){
     
         rightForm.appendChild(rInput);
         rightForm.appendChild(dInput);
-        // rightForm.appendChild(tInput);
+        rightForm.appendChild(tInput);
         rightForm.appendChild(fInput);
     
         rightForm.setAttribute(`id`,`newTaskForm`);
@@ -94,21 +89,32 @@ function addNewTask(){
     
     if (newName){
         const now = new Date();
+        let setTime=``;
         let newDate=document.getElementById(`dateInput`).value;
-        const setTime=new Date(newDate);
+        let newTime=document.getElementById(`timeInput`).value;
+
+        if(newTime===``){
+            setTime=new Date(newDate+` `+`00:00`);
+        }
+        else{
+            setTime=new Date(newDate+` `+newTime);
+        }
+        // setTime=new Date(temp0.value+` `+temp1.value);
+        
         if (setTime>now || newDate===``){
-            if (newDate!==``){newDate=newDate.match(/\d+/g).reverse().join(`.`)}
+            // if (newDate!==``){newDate=newDate.match(/\d+/g).reverse().join(`.`)}
             // let newTime=document.getElementById(`timeInput`).value;
             let newFolder=allFolders[document.getElementById(`folderInput`).value];
     
-            addTask(newName,newFolder,newDate);
+            if (setTime==`Invalid Date`){addTask(newName,newFolder,``);}
+            else{addTask(newName,newFolder,setTime);}
     
             currentFolderId=-1;
             reprintTasks();
     
             document.getElementById(`taskNameInput`).value=``;
             document.getElementById(`dateInput`).value=``;
-            // document.getElementById(`timeInput`).value=``;
+            document.getElementById(`timeInput`).value=``;
             document.getElementById(`folderInput`).value=0;
         }
     }    

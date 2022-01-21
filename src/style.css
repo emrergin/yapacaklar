@@ -74,7 +74,7 @@ body{
     /* background-color: var(--bannerrenk); */
     color:var(--banneryazirenk);
     display: inline-flex;
-    align-items: flex-start;
+    align-items: center;
     /* justify-content: space-between; */
     gap: 3vmin;
     border-radius: 0.5vmin;
@@ -92,22 +92,34 @@ body{
     -o-user-select: none;
 }
 
-.leftDelete{
-    width: 3vmin;
+
+
+.leftDelete, .rightDelete{
+    width: 3vmin; 
     height: 3vmin;
-    border-radius: 50%;
-    text-align: top;
-    display: flex;
-    background-color: #E94F37;
-    color:#FFFFFF;
+    border: 0px;
+    background-color:inherit;
     font-weight: 800;
     font-size: 1.25em;
-    border: 0px;
-    /* align-items: center; */
-    justify-content: center;
-    /* box-shadow: 0px 0.25vmin black; */
-     /* box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset; */
-} 
+    transition: color 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.rightDelete{
+    color: #898396;    
+    font-size: 1.25em;
+}
+
+.leftDelete{
+    color: #FFFFFF;
+    font-size: 2.5em;
+    padding-bottom:25%;
+}
+
+.leftDelete:hover, .rightDelete:hover{
+    color: #E94F37;
+    text-shadow: 0px 2px black;
+    transform: scale(1.25);
+}
 
 
 button{

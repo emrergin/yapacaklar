@@ -34,35 +34,57 @@ export class Task{
         nameAndCheckboks.appendChild(name);
         nameAndCheckboks.classList.add(`nameandcheck`);
         nameAndCheckboksContainer.appendChild(nameAndCheckboks);
-        nameAndCheckboksContainer.style.cssText=`background: linear-gradient(to right,${this.folder.color} 2vw, white 2vw);`;
-        row.appendChild(nameAndCheckboksContainer);
+        if (this.folder.color){
+            nameAndCheckboksContainer.style.cssText=`background: linear-gradient(to right,${this.folder.color} 2vw, white 2vw);`;
+        }     
 
-        date.textContent=this.lastDate;
-        if (this.lastDate===``){date.style.border=`0px`;}
-        row.appendChild(date);
+        if (this.lastDate===``){
+            date.style.display=`none`;
+            date.textContent=``;
+        }
+        else{
+            date.textContent=new Date(this.lastDate).toLocaleString("tr-TR");
+        }       
 
         this.lastDate===`` ? remaining.textContent=``: remaining.textContent=this.remainingTime();   
-        if (this.lastDate===``){remaining.style.border=`0px`;}
-        if (this.completed){
-            name.style.textDecoration=`line-through`;
-            name.style.border=`0px`;
-        }
-        row.appendChild(remaining);
+        if (this.lastDate===``){remaining.style.display=`none`;}
+
 
         let deleteButton=document.createElement(`button`);
         deleteButton.textContent=`×`;
-        deleteButton.classList.add(`leftDelete`);
+        deleteButton.classList.add(`rightDelete`);
         deleteButtonBox.appendChild(deleteButton);
         deleteButtonBox.style.border=`0px`;
-        deleteButtonBox.style.padding=`0px`;        
-        row.appendChild(deleteButtonBox);
+        deleteButtonBox.style.padding=`0px`;  
         
+        if (this.completed===true){
+            nameAndCheckboksContainer.style.borderStyle =`dashed`;
+            nameAndCheckboksContainer.style.color=`#b5b4b8`;
+            name.style.textDecoration=`line-through`;
+            date.style.borderStyle =`dashed`;
+            remaining.style.borderStyle =`dashed`;
+            date.style.color=`#b5b4b8`;
+            remaining.style.color=`#b5b4b8`;
+            date.style.textDecoration=`line-through`;
+            remaining.style.textDecoration=`line-through`;
+        }
+
+        
+        if (this.lastDate===``){
+            nameAndCheckboksContainer.setAttribute(`colspan`,`3`);
+        }
+
+        row.appendChild(nameAndCheckboksContainer);
+        row.appendChild(date);
+        row.appendChild(remaining);
+        row.appendChild(deleteButtonBox);
+
         return row;
     }
 
     remainingTime(){
-        const dateArray=this.lastDate.split(`.`);
-        const endDate=new Date(dateArray[2],dateArray[1]-1,dateArray[0]);
+        // const dateArray=this.lastDate.split(`.`);
+        const endDate=new Date(this.lastDate);
         const now = new Date();
         const remainingTimeObject=intervalToDuration({
             start: now,

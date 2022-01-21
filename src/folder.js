@@ -22,6 +22,7 @@ export class Folder{
 
             deleteButton.textContent=`×`;
             deleteButton.classList.add(`leftDelete`);
+            // deleteButton.classList.add(`leftDeleteAcik`);
             
             Link.appendChild(deleteButton);
         }
