@@ -91,6 +91,7 @@ export class Task{
             end: endDate
         });
 
+        if (endDate<now){return `Zamanı geçti!`;}
         const result = [];
         const trTimeWords=["Yıl","Ay","Gün","Saat","Dakika","Saniye","Milisaniye"];
         let counter=0;

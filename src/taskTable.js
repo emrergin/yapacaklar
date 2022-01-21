@@ -93,17 +93,17 @@ function addNewTask(){
         let newDate=document.getElementById(`dateInput`).value;
         let newTime=document.getElementById(`timeInput`).value;
 
-        if(newTime===``){
+        if(newTime===`` && newDate!==``){
             setTime=new Date(newDate+` `+`00:00`);
         }
-        else{
+        if(newTime!==`` && newDate===``){
+            setTime=new Date(now.getFullYear()+'-'+(now.getMonth()+1)+'-'+now.getDate()+` `+newTime);
+        }
+        if(newTime!==`` && newDate!==``){
             setTime=new Date(newDate+` `+newTime);
         }
-        // setTime=new Date(temp0.value+` `+temp1.value);
         
-        if (setTime>now || newDate===``){
-            // if (newDate!==``){newDate=newDate.match(/\d+/g).reverse().join(`.`)}
-            // let newTime=document.getElementById(`timeInput`).value;
+        if (setTime>now || (newDate===``&&newTime===``)){
             let newFolder=allFolders[document.getElementById(`folderInput`).value];
     
             if (setTime==`Invalid Date`){addTask(newName,newFolder,``);}
