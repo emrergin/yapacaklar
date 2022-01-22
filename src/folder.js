@@ -18,7 +18,7 @@ export class Folder{
 
         if (this.id!==0)
         {
-            let deleteButton=document.createElement(`button`);
+            let deleteButton=document.createElement(`div`);
 
             deleteButton.textContent=`×`;
             deleteButton.classList.add(`leftDelete`);

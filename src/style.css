@@ -71,16 +71,12 @@ body{
 }
 
 .leftLink{
-    /* background-color: var(--bannerrenk); */
     color:var(--banneryazirenk);
     display: inline-flex;
-    align-items: stretch;
-    /* justify-content: space-between; */
+    align-items: center;
     gap: 3vmin;
     border-radius: 0.5vmin;
-    /* padding: 1vmax 21vmin 1vmax 1vmin; */
     padding: 1vmax;
-    /* text-ali */
     height: 7vh;
     font-weight: 800;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
@@ -95,9 +91,7 @@ body{
 
 
 .leftDelete, .rightDelete{
-    width: 3vmin; 
-    height: 3vmin;
-    border: 0px;
+    
     background-color:inherit;
     font-weight: 800;
     transition: color 0.5s ease-in-out, transform 0.5s ease-in-out;
@@ -106,12 +100,16 @@ body{
 .rightDelete{
     color: #898396;    
     font-size: 1.25em;
+    border: 0px;
 }
 
 .leftDelete{
     color: #FFFFFF;
     font-size: 2.5em;
-
+    /* border: 3px solid red; */
+    border:0px;
+    /* align-self: flex-start; */
+    margin-top: 0px;
 }
 
 .leftDelete:hover, .rightDelete:hover{
