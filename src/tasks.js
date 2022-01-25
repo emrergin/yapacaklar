@@ -1,5 +1,6 @@
 import {defaultFolderName} from './folder';
 import { intervalToDuration } from 'date-fns'
+import nextMonday from 'date-fns/fp/nextMonday/index';
 
 const tableBackgroundColor=`#FFFFFF`;
 
@@ -25,18 +26,37 @@ export class Task{
 
         let checkMark=document.createElement(`input`);
         checkMark.setAttribute(`type`,`checkbox`);
-        checkMark.checked=this.completed;
-        nameAndCheckboks.appendChild(checkMark);
+        checkMark.checked=this.completed;   
+        
+
+        let checkMarkContainer=document.createElement(`div`);
+        
+        // ${boxWidth}
+        // let boxWidth=checkMark.offsetWidth*1.5;
+        if (this.folder.color){
+            // nameAndCheckboksContainer.style.cssText=`background: linear-gradient(to right,${this.folder.color} 20%, white 20%);`;
+            nameAndCheckboksContainer.style.cssText=`background: linear-gradient(to right,${this.folder.color} 2vw, white 2vw);`;
+            // nameAndCheckboksContainer.style.backgroundColor =this.folder.color;
+            // checkMark.style.border=`1vw solid ${this.folder.color}`;
+        }        
+        checkMarkContainer.appendChild(checkMark);
+        checkMarkContainer.style.width="20%";
+        // checkMarkContainer.style.height=`100%`;
+        nameAndCheckboks.appendChild(checkMarkContainer);
+        // nameAndCheckboks.appendChild(checkMarkContainer);
+        // nameAndCheckboksContainer.appendChild(checkMarkContainer);
 
         let name=document.createElement(`div`);
         name.textContent=this.taskName;
+        name.style.width="80%";
         // 
         nameAndCheckboks.appendChild(name);
         nameAndCheckboks.classList.add(`nameandcheck`);
         nameAndCheckboksContainer.appendChild(nameAndCheckboks);
-        if (this.folder.color){
-            nameAndCheckboksContainer.style.cssText=`background: linear-gradient(to right,${this.folder.color} 2vw, white 2vw);`;
-        }     
+        // nameAndCheckboksContainer.style.padding = "0px";
+
+
+ 
 
         if (this.lastDate===``){
             date.style.display=`none`;

@@ -31,6 +31,7 @@ src: local('Open Sans Semibold'), local('OpenSans-Semibold'), url(https://fonts.
 
 body{
     margin:0px;
+    border:0px;
     font-family: 'Open Sans';
 }
 
@@ -40,6 +41,9 @@ body{
     background-color:var(--arkaplan) ;
     color:  #e3e3e3;
     height: 100vh;
+    width: 100vw;
+    margin:0px;
+    border:0px;
 }
 
 .Heading{
@@ -151,6 +155,17 @@ td{
     font-size: 20px;
 }
 
+.nameandcheck{
+    height:100%;
+    margin:0px;
+    display: inline-flex;
+    gap: 1vw;
+}
+
+/* .nameandcheck:nth-child(1){ */
+    /* background-color: #E94F37; */
+/* } */
+
 /* td:first-child{
     padding-left: 2%;
 } */
@@ -183,18 +198,86 @@ td{
 
 .formContainer{
     display:flex;
-    justify-content: space-between;
+    justify-content: space-between;    
 }
 
 input[type=checkbox] {
     transform: scale(1.5);
 }
 
-.nameandcheck{
-    display: inline-flex;
-    gap: 1vw;
+input[type=checkbox]::after{
+    background-color: white;
+    content: 'a';
 }
 
-/* input{
-    font-size: 1.5em;
-} */
+
+/* Mobile */
+@media (max-width:700px) or (orientation:portrait) {
+    /* .allThings{ */
+        /* align-items: stretch; */
+        /* justify-content: stretch; */
+        /* width:100vw; */
+
+    /* } */
+        
+        
+    .middle_all{
+        /* display:flex; */
+        flex-direction: column;
+        /* align-items: center; */
+        /* height: 100%; */
+        /* width: 100vw; */
+        padding:0px;
+    }
+
+    table{
+        width:100vw;
+        margin:0px;
+        border: 0px;
+    }
+
+    /* .middle_two{ */
+       /* order:0; */
+       /* padding:0px; */
+       /* width: 95%; */
+    /* } */
+
+    #taskTableDiv{
+        order:0;
+        padding:0px;
+        margin:0px;
+    }
+
+
+    .middle_one{
+        /* display: flex; */
+        flex-wrap: wrap;
+        flex-direction: row;
+        order:1;
+        align-items: flex-start;
+        align-content: flex-start;
+        /* align-items: stretch; */
+    }
+
+    .container{
+        width:100%;
+    }
+
+    .leftLink{
+        width: 32%;
+    }
+
+    .formContainer{
+        flex-wrap: wrap;
+    }
+
+    #newFolderForm{
+        order: -2;
+        width: 48%;
+    }
+
+    .middle_one button{
+        width: inherit;
+        order:-1;
+    }
+}
