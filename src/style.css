@@ -205,10 +205,10 @@ input[type=checkbox] {
     transform: scale(1.5);
 }
 
-input[type=checkbox]::after{
-    background-color: white;
-    content: 'a';
-}
+/* input[type=checkbox]::after{ */
+    /* background-color: white; */
+    /* content: 'a'; */
+/* } */
 
 
 /* Mobile */
