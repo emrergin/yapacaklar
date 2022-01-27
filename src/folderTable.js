@@ -21,6 +21,10 @@ function addNewFolder(){
         document.getElementById(`colorInput`).value=ConvertRGBtoHex(randomBetween(0,255),randomBetween(0,255),randomBetween(0,255));
         remakeDropdown();
     }
+    else{
+        document.getElementById(`folderNameInput`).setCustomValidity("Lütfen bir klasör ismi girin.");
+        document.getElementById(`folderNameInput`).reportValidity();
+    }
     
     function reprintFolders(){
         for (let i = 0; i < allFolders.length; i++) {

@@ -117,7 +117,14 @@ function addNewTask(){
             document.getElementById(`timeInput`).value=``;
             document.getElementById(`folderInput`).value=0;
         }
-    }    
+        else{
+            document.getElementById(`dateInput`).setCustomValidity("Lütfen gelecekteki bir zaman seçin.");
+            document.getElementById(`dateInput`).reportValidity();
+        }
+    }else{
+        document.getElementById(`taskNameInput`).setCustomValidity("Lütfen bir görev ismi girin.");
+        document.getElementById(`taskNameInput`).reportValidity();
+    }  
 }
 
 function reprintTasks(){
