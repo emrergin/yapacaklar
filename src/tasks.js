@@ -35,7 +35,7 @@ export class Task{
         // let boxWidth=checkMark.offsetWidth*1.5;
         if (this.folder.color){
             // nameAndCheckboksContainer.style.cssText=`background: linear-gradient(to right,${this.folder.color} 20%, white 20%);`;
-            nameAndCheckboksContainer.style.cssText=`background: linear-gradient(to right,${this.folder.color} 2vw, white 2vw);`;
+            nameAndCheckboksContainer.style.cssText=`background: linear-gradient(to right,${this.folder.color} 35px, white 32px);`;
             // nameAndCheckboksContainer.style.backgroundColor =this.folder.color;
             // checkMark.style.border=`1vw solid ${this.folder.color}`;
         }        
