@@ -29,6 +29,7 @@ export class Task{
         
         if (this.folder.color){
             nameAndCheckboksContainer.style.cssText=`background: linear-gradient(to right,${this.folder.color} 35px, white 36px);`;
+            nameAndCheckboksContainer.style.backgroundRepeat = "no-repeat";
         }        
 
         nameAndCheckboks.appendChild(checkMark);
