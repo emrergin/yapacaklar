@@ -71,7 +71,6 @@ function tableWrite(){
 
     function printTasks(){
         for (let i = 0; i < allTasks.length; i++) {
-            // table.appendChild(allTasks[i].writeRow());
 
             const taskRow=allTasks[i].writeRow();
             taskRow.dataset.taskId=allTasks[i].id;
@@ -149,7 +148,6 @@ function reprintTasks(){
 
 
 function addTask(title,folder,date){
-    // allTasks.push(new Task(title,folder,date));
 
     let newId=0;
     if (allTasks.length===0){
@@ -167,6 +165,7 @@ function addTask(title,folder,date){
 function toggleCompleted(e){
 
     let relatedId=e.target.parentNode.parentNode.parentNode.dataset.taskId;
+    console.log(e.target.parentNode);
 
     for (let i = 0; i < allTasks.length; i++) {
        if (allTasks[i].id==relatedId){
@@ -174,6 +173,7 @@ function toggleCompleted(e){
            break;
        }
     }
+
     reprintTasks();
     localStorage.setItem("tasks_JSON", JSON.stringify(allTasks));
 }

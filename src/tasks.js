@@ -1,6 +1,5 @@
 import {defaultFolderName} from './folder';
 import { intervalToDuration } from 'date-fns'
-import nextMonday from 'date-fns/fp/nextMonday/index';
 
 const tableBackgroundColor=`#FFFFFF`;
 
@@ -12,7 +11,6 @@ export class Task{
         this.lastDate = lastDate || ``;
         this.id=id;
         this.completed=false;
-        // console.log(this.folder.id);
     }
 
     writeRow(){
@@ -26,25 +24,14 @@ export class Task{
 
         let checkMark=document.createElement(`input`);
         checkMark.setAttribute(`type`,`checkbox`);
-        checkMark.checked=this.completed;   
+        console.log(this.completed);
+        checkMark.checked=this.completed;           
         
-
-        let checkMarkContainer=document.createElement(`div`);
-        
-        // ${boxWidth}
-        // let boxWidth=checkMark.offsetWidth*1.5;
         if (this.folder.color){
-            // nameAndCheckboksContainer.style.cssText=`background: linear-gradient(to right,${this.folder.color} 20%, white 20%);`;
-            nameAndCheckboksContainer.style.cssText=`background: linear-gradient(to right,${this.folder.color} 35px, white 32px);`;
-            // nameAndCheckboksContainer.style.backgroundColor =this.folder.color;
-            // checkMark.style.border=`1vw solid ${this.folder.color}`;
+            nameAndCheckboksContainer.style.cssText=`background: linear-gradient(to right,${this.folder.color} 35px, white 36px);`;
         }        
-        checkMarkContainer.appendChild(checkMark);
-        checkMarkContainer.style.width="20%";
-        // checkMarkContainer.style.height=`100%`;
-        nameAndCheckboks.appendChild(checkMarkContainer);
-        // nameAndCheckboks.appendChild(checkMarkContainer);
-        // nameAndCheckboksContainer.appendChild(checkMarkContainer);
+
+        nameAndCheckboks.appendChild(checkMark);
 
         let name=document.createElement(`div`);
         name.textContent=this.taskName;
@@ -52,11 +39,7 @@ export class Task{
         // 
         nameAndCheckboks.appendChild(name);
         nameAndCheckboks.classList.add(`nameandcheck`);
-        nameAndCheckboksContainer.appendChild(nameAndCheckboks);
-        // nameAndCheckboksContainer.style.padding = "0px";
-
-
- 
+        nameAndCheckboksContainer.appendChild(nameAndCheckboks); 
 
         if (this.lastDate===``){
             date.style.display=`none`;
@@ -68,7 +51,6 @@ export class Task{
 
         this.lastDate===`` ? remaining.textContent=``: remaining.textContent=this.remainingTime();   
         if (this.lastDate===``){remaining.style.display=`none`;}
-
 
         let deleteButton=document.createElement(`button`);
         deleteButton.textContent=`×`;
@@ -87,8 +69,8 @@ export class Task{
             remaining.style.color=`#b5b4b8`;
             date.style.textDecoration=`line-through`;
             remaining.style.textDecoration=`line-through`;
+            nameAndCheckboksContainer.style.filter = "grayscale(80%)";
         }
-
         
         if (this.lastDate===``){
             nameAndCheckboksContainer.setAttribute(`colspan`,`3`);
